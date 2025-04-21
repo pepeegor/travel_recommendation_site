@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block extra_css %}
+<link
+  href="{{ url_for('static', path='css/pages/trip_details.css') }}"
+  rel="stylesheet"
+/>
+{% endblock %} {% block title %}Детали Отзыва{% endblock %} {% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h1 class="glow-text mb-4 text-center">
+        <i class="bi bi-chat-left-quote-fill"></i> Детали Отзыва
+      </h1>
+
+      <div class="trip-details-background">
+        <div
+          class="trip-details"
+          id="reviewDetails"
+          data-review-id="{{ review.id }}"
+        >
+          <div class="destination-image-container">
+            <img
+              src="{{ destination.image_url }}"
+              alt="{{ destination.name }}"
+              class="destination-image"
+            />
+          </div>
+
+          <h2>{{ destination.name }}, {{ destination.country }}</h2>
+          <p class="text-muted">
+            Дата: {{ review.created_at.strftime('%d.%m.%Y') }}
+          </p>
+
+          <form id="updateReviewForm" method="POST">
+            <div class="form-group mb-3">
+              <label for="rating" class="form-label">
+                <i class="bi bi-star-fill"></i> Оценка:
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                id="rating"
+                name="rating"
+                value="{{ review.rating }}"
+                min="1"
+                max="5"
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="comment" class="form-label">
+                <i class="bi bi-chat-left-text-fill"></i> Комментарий:
+              </label>
+              <textarea
+                class="form-control"
+                id="comment"
+                name="comment"
+                rows="3"
+                required
+              >
+{{ review.comment }}</textarea
+              >
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-pencil-square"></i> Обновить Отзыв
+              </button>
+            </div>
+          </form>
+
+          <div class="d-grid gap-2 mt-3">
+            <button id="deleteReviewButton" class="btn btn-danger">
+              <i class="bi bi-trash"></i> Удалить Отзыв
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/review_details.js') }}"></script>
+{% endblock %}

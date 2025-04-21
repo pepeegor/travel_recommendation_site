@@ -1,0 +1,22 @@
+{% extends "base.html" %} 
+
+{% block title %}Мои Путешествия{% endblock %} 
+
+{% block extra_css %}
+<link href="{{ url_for('static', path='css/pages/trips.css') }}" rel="stylesheet" />
+{% endblock %} 
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="glow-text mb-4 text-center"> 
+        <i class="bi bi-journal-richtext"></i> Мои Путешествия 
+    </h1> 
+
+    <div class="row justify-content-center" id="tripsContainer"> 
+        </div>
+</div>
+{% endblock %} 
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/trips.js') }}"></script>
+{% endblock %}

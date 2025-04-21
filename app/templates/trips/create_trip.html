@@ -1,0 +1,64 @@
+{% extends "base.html" %} 
+
+{% block title %}Добавить Путешествие{% endblock %} 
+
+{% block extra_css %}
+<link href="{{ url_for('static', path='css/pages/create_trip.css') }}" rel="stylesheet" />
+{% endblock %} 
+
+{% block content %}
+<div class="container mt-4 dark-theme">
+    <div class="row justify-content-center"> 
+        <div class="col-md-6"> 
+            <h1 class="glow-text mb-4 text-center"> 
+                <i class="bi bi-airplane-engines-fill"></i> Добавить Путешествие 
+            </h1> 
+            <form id="createTripForm" method="POST">
+                <div class="form-group mb-3">
+                    <label for="destination" class="form-label">
+                        <i class="bi bi-geo-alt-fill"></i> Направление
+                    </label>
+                    <select class="form-select" id="destination" required>
+                        <option value="" disabled selected>Выберите направление</option>
+                        {% for destination in destinations %}
+                            <option value="{{ destination.id }}">
+                                {{ destination.name }} ({{ destination.country }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="startDate" class="form-label">
+                        <i class="bi bi-calendar-event-fill"></i> Дата начала
+                    </label>
+                    <input type="date" class="form-control" id="startDate" name="startDate" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="endDate" class="form-label">
+                        <i class="bi bi-calendar2-event-fill"></i> Дата окончания
+                    </label>
+                    <input type="date" class="form-control" id="endDate" name="endDate" required />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="budget" class="form-label">
+                        <i class="bi bi-cash-coin"></i> Бюджет
+                    </label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="budget" name="budget" required />
+                        <span class="input-group-text">$</span>
+                    </div>
+                </div>
+                <div class="d-grid gap-2"> 
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-plus-circle-fill"></i> Создать Путешествие
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/create_trip.js') }}"></script>
+{% endblock %}

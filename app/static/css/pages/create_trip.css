@@ -1,0 +1,23 @@
+/* create_trip.css */
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-control,
+.form-select {
+  border-radius: 5px; /* Add rounded corners to input fields */
+}
+
+.btn-primary {
+  background-color: var(--accent-color); 
+  border: none;
+  color: var(--primary-dark);
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Add a smooth transition for hover effect */
+}
+
+.btn-primary:hover {
+  background-color: #b08d4d; /* Darker gold on hover */
+  color: var(--primary-dark);
+}

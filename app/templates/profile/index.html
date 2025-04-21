@@ -1,0 +1,195 @@
+{% extends 'base.html' %} {% block title %} Личный кабинет - Grand Turismo
+{%endblock %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', path='css/pages/profile.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="container py-5">
+  <h1 class="glow-text mb-4 text-center">Личный кабинет</h1>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        <div class="card-body text-center">
+          <h5 class="my-3 glow-text">{{ current_user.username }}</h5>
+          <p class="text-muted mb-1">{{ current_user.email }}</p>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#editProfileModal"
+          >
+            <i class="bi bi-pencil-square"></i> Редактировать профиль
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <!--  Разделы  личного кабинета -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <ul
+            class="nav nav-tabs card-header-tabs"
+            id="profileTabs"
+            role="tablist"
+          >
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="reviews-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#reviews"
+                type="button"
+                role="tab"
+                aria-controls="reviews"
+                aria-selected="true"
+              >
+                <i class="bi bi-chat-left-text"></i> Отзывы
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="profileTabsContent">
+            <div
+              class="tab-pane fade show active"
+              id="reviews"
+              role="tabpanel"
+              aria-labelledby="reviews-tab"
+            >
+              <!-- Отзывы -->
+              <p>Здесь будут отображаться отзывы пользователя</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary mt-3"
+            data-bs-toggle="modal"
+            data-bs-target="#createReviewModal"
+          >
+            <i class="bi bi-plus-circle"></i> Создать отзыв
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="editProfileModal"
+  tabindex="-1"
+  aria-labelledby="editProfileModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">
+          Редактировать профиль
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProfileForm">
+          <div class="mb-3">
+            <label for="username" class="col-form-label">Юзернейм:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              value="{{ current_user.username }}"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email:</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              value="{{ current_user.email }}"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="col-form-label">Пароль:</label>
+            <input type="password" class="form-control" id="password" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Закрыть
+        </button>
+        <button type="submit" class="btn btn-primary" form="editProfileForm">
+          Сохранить
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="createReviewModal"
+  tabindex="-1"
+  aria-labelledby="createReviewModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createReviewModalLabel">Создать отзыв</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="createReviewForm">
+          <div class="mb-3">
+            <label for="destination" class="col-form-label">Место:</label>
+            <select class="form-select" id="destination" required>
+              {% for destination in destinations %}
+              <option value="{{ destination.id }}">
+                {{ destination.name }}, {{ destination.country }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="rating" class="col-form-label">Оценка:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="rating"
+              min="1"
+              max="5"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="comment" class="col-form-label">Комментарий:</label>
+            <textarea class="form-control" id="comment"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Закрыть
+        </button>
+        <button type="submit" class="btn btn-primary" form="createReviewForm">
+          Создать
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/profile.js') }}"></script>
+{% endblock %}

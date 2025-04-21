@@ -1,0 +1,65 @@
+{% extends "base.html" %} 
+
+{% block extra_css %}
+<link href="{{ url_for('static', path='css/pages/trip_details.css') }}" rel="stylesheet">
+{% endblock %} 
+
+{% block title %}Детали Путешествия{% endblock %} 
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8"> 
+            <h1 class="glow-text mb-4 text-center"> 
+                <i class="bi bi-compass-fill"></i> {{ destination.name }} 
+            </h1> 
+
+            <div class="trip-details-background"> 
+                <div class="trip-details" id="tripDetails" data-trip-id="{{ trip.id }}">
+                    <div class="destination-image-container"> 
+                        <img src="{{ destination.image_url }}" alt="{{ destination.name }}" class="destination-image">
+                    </div>
+
+                    <p><i class="bi bi-calendar-event-fill"></i> Дата начала: {{ trip.start_date.strftime('%d.%m.%Y') }}</p> 
+                    <p><i class="bi bi-calendar2-event-fill"></i> Дата окончания: {{ trip.end_date.strftime('%d.%m.%Y') }}</p> 
+
+                    <form id="updateTripForm" method="POST">
+                        <div class="form-group mb-3">
+                            <label for="budget" class="form-label">
+                                <i class="bi bi-cash-coin"></i> Бюджет ($):
+                            </label>
+                            <input type="number" class="form-control" id="budget" name="budget" value="{{ trip.budget }}" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="status" class="form-label">
+                                <i class="bi bi-flag-fill"></i> Статус:
+                            </label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="planned" {% if trip.status == "planned" %}selected{% endif %}>Запланировано</option> 
+                                <option value="in_progress" {% if trip.status == "in_progress" %}selected{% endif %}>В процессе</option> 
+                                <option value="completed" {% if trip.status == "completed" %}selected{% endif %}>Завершено</option> 
+                            </select>
+                        </div>
+                        <div class="d-grid gap-2"> 
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-pencil-square"></i> Обновить Путешествие
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="d-grid gap-2 mt-3"> 
+                        <button id="deleteTripButton" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Удалить Путешествие
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/trip_details.js') }}"></script> 
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Направления - Grand Turismo{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/pages/destinations.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="filter-section">
+        <h2><i class="bi bi-funnel"></i> Фильтры</h2> 
+        <div id="filters" class="mb-3">
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="destinations-section">
+        <h1><i class="bi bi-geo-alt-fill"></i> Направления</h1> 
+        <div id="destinations-list" class="row g-4"></div>
+
+        <nav aria-label="Page navigation" id="pagination" class="mt-3">
+          <ul class="pagination justify-content-center"></ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/destinations.js') }}"></script>
+{% endblock %}

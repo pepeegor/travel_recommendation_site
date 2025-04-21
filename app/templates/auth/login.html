@@ -1,0 +1,71 @@
+{% extends "base.html" %} 
+{% block title %}Grand Turismo - Вход{% endblock %} 
+{%block extra_css %}
+<link
+  href="{{ url_for('static', path='css/pages/auth.css') }}"
+  rel="stylesheet"
+/>
+{% endblock %} 
+{% block content %}
+<div class="auth-container">
+  <div class="card bg-dark-gradient">
+    <div class="card-body p-4">
+      <h2 class="text-center mb-4">
+        <span class="glow-text">Вход в систему</span>
+      </h2>
+      <form id="loginForm" onsubmit="auth.handleLogin(event)">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Пароль</label>
+          <div class="input-group">
+            <span class="input-group-text bg-dark border-secondary">
+              <i class="bi bi-key"></i>
+            </span>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+            />
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              onclick="auth.togglePassword('password')"
+            >
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-3">
+          <i class="bi bi-box-arrow-in-right"></i> Войти
+        </button>
+      </form>
+      <div class="text-center">
+        <p class="mb-0">
+          Нет аккаунта?
+          <a href="/pages/register" class="text-decoration-none glow-text"
+            >Зарегистрируйтесь</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/auth.js') }}"></script>
+{% endblock %}
