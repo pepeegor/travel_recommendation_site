@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="{{ url_for('static', path='css/pages/routes_create.css') }}" />
+{% endblock %}
+
+{% block title %}Редактировать маршрут: {{ route_json.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <aside class="col-md-4 border-end vh-100 overflow-auto p-4 bg-dark-gradient">
+      <h2 class="mb-4">Редактировать маршрут</h2>
+
+      <div class="mb-3">
+        <label for="routeName" class="form-label">Название маршрута</label>
+        <input type="text" id="routeName" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="selectTrip" class="form-label">Поездка</label>
+        <select id="selectTrip" class="form-select" required>
+          <option value="" disabled>Выберите поездку</option>
+          {% for trip in trips %}
+            <option value="{{ trip.id }}" data-dest-id="{{ trip.destination.id }}">
+              {{ trip.destination.name }} ({{ trip.start_date.strftime('%d.%m.%Y') }}–{{ trip.end_date.strftime('%d.%m.%Y') }})
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <h3 class="mt-4">Точки маршрута</h3>
+      <p class="text-muted">Нажмите «Добавить место» и выберите из списка</p>
+
+      <button id="addPointBtn" class="btn btn-outline-primary w-100 mb-3" disabled>
+        <i class="bi bi-plus-lg"></i> Добавить место
+      </button>
+      <ul id="suggestions" class="list-group mb-3"></ul>
+      <ol id="selectedPoints" class="list-group list-group-numbered mb-4"></ol>
+
+      <div class="d-grid">
+        <button id="saveRouteBtn" class="btn btn-success" disabled>
+          <i class="bi bi-check-lg"></i> Сохранить изменения
+        </button>
+      </div>
+    </aside>
+
+    <section class="col-md-8 p-0">
+      <div id="route-create-map" class="w-100" style="height:80vh;"></div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <script>
+    // передаём данные маршрута в JS
+    window.routeData = {{ route_json | tojson }};
+  </script>
+  <script src="{{ url_for('static', path='js/pages/routes_edit.js') }}" defer></script>
+{% endblock %}

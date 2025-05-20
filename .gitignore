@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+<<<<<<< HEAD
 # C extensions
 *.so
 
@@ -31,6 +32,13 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
+=======
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+>>>>>>> 73d1ad2 (First commit)
 
 # Installer logs
 pip-log.txt
@@ -43,6 +51,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+<<<<<<< HEAD
 nosetests.xml
 coverage.xml
 *.cover
@@ -172,3 +181,38 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+=======
+.pytest_cache/
+
+# Virtual environments
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Environments variables
+.env
+*.env
+
+# IDE / editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Docker
+docker-compose.override.yml
+*.local.yml
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+>>>>>>> 73d1ad2 (First commit)

@@ -1,0 +1,80 @@
+:root {
+  --accent-color: #c8a45d;
+  --dark-bg: #2d2d2d;
+  --dark-border: #404040;
+  --text-color: #e0e0e0;
+  --hover-bg: #383838;
+}
+
+h1 {
+  color: var(--accent-color);
+  text-shadow: 0 0 8px rgba(200, 164, 93, 0.5);
+}
+
+/* Список маршрутов */
+.list-group {
+  background: var(--dark-bg);
+  border: 1px solid var(--dark-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.list-group-item {
+  background: var(--dark-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-group-item + .list-group-item {
+  border-top: 1px solid var(--dark-border);
+}
+
+.list-group-item:hover,
+.list-group-item:focus {
+  background: var(--hover-bg);
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.list-group-item i.bi-chevron-right {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  transition: transform 0.2s ease;
+}
+
+.list-group-item:hover i.bi-chevron-right {
+  transform: translateX(4px);
+}
+.route-icon {
+  color: var(--accent-color) !important;
+  transition: color 0.2s ease;
+}
+
+/* при наведении чуть подсвечиваем */
+.list-group-item:hover .route-icon {
+  color: #ffd17a;
+}
+
+/* Кнопка внизу */
+.btn-success.auth-required {
+  width: 100%;
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--dark-bg);
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  box-shadow: 0 2px 6px rgba(200, 164, 93, 0.3);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-success.auth-required:hover {
+  background-color: #b08d4d;
+  box-shadow: 0 2px 10px rgba(200, 164, 93, 0.5);
+  color: var(--dark-bg);
+}

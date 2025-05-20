@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Стили страницы деталей маршрута -->
+  <link rel="stylesheet" href="{{ url_for('static', path='css/pages/route_detail.css') }}" />
+{% endblock %}
+
+{% block title %}Маршрут: {{ route.name }}{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h1>{{ route.name }}</h1>
+    {% if route.user_id == current_user.id %}
+      <div class="btn-group">
+        {% if not route.published %}
+          <button id="publishBtn" class="btn btn-outline-success me-1">
+            <i class="bi bi-upload"></i> Опубликовать
+          </button>
+        {% else %}
+          <button id="unpublishBtn" class="btn btn-outline-danger me-1">
+            <i class="bi bi-download"></i> Снять публикацию
+          </button>
+        {% endif %}
+        <a href="/pages/routes/{{ route.id }}/edit"
+           id="editBtn"
+           class="btn btn-outline-warning">
+          <i class="bi bi-pencil"></i> Редактировать
+        </a>
+      </div>
+    {% endif %}
+  </div>
+  
+
+  <div class="route-meta mb-4">
+    <strong>Бюджет маршрута:</strong>
+    {% if route.total_budget is not none %}
+      {{ route.total_budget }} $
+    {% else %}
+      — не указан
+    {% endif %}
+  </div>
+
+  {% if not route_json.points or route_json.points|length == 0 %}
+    <div class="alert alert-info">
+      В этом маршруте ещё нет ни одной точки. Перейдите в редактор и добавьте достопримечательности.
+    </div>
+  {% else %}
+    <div id="route-map"></div>
+    <h5 class="mt-4">Точки маршрута</h5>
+    <ol id="points-list" class="list-group list-group-numbered">
+      {% for assoc in route.attractions|sort(attribute='position') %}
+        <li class="list-group-item point-item" data-index="{{ loop.index0 }}">
+          {{ assoc.attraction.name }} ({{ assoc.attraction.type }})
+        </li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Передаём данные маршрута в JS -->
+  <script>window.routeData = {{ route_json | tojson }};</script>
+  <!-- Логика работы карты и кнопок -->
+  <script src="{{ url_for('static', path='js/pages/route_detail.js') }}" defer></script>
+{% endblock %}

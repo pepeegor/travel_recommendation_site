@@ -1,0 +1,159 @@
+{% extends "base.html" %} {% block title %}Grand Turismo - Путешествуйте с
+комфортом{% endblock %} {% block extra_css %}
+<link
+  href="{{ url_for('static', path='css/pages/index.css') }}"
+  rel="stylesheet"
+/>
+{% endblock %} {% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5 mb-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <h1 class="display-4 glow-text mb-4">
+          Планируйте путешествия с комфортом
+        </h1>
+        <p class="lead mb-4">
+          Откройте для себя новые направления, организуйте маршруты и храните
+          все детали путешествий в одном месте.
+        </p>
+        {% if current_user is not none %}
+        <div class="d-flex gap-3">
+          <a href="/pages/trips/create" class="btn btn-primary btn-lg">
+            <i class="bi bi-plus-lg"></i> Новое путешествие
+          </a>
+          <a href="/pages/trips" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-journal-richtext"></i> Мои путешествия
+          </a>
+        </div>
+        {% else %}
+        <div class="d-flex gap-3">
+          <a href="/pages/register" class="btn btn-primary btn-lg">
+            <i class="bi bi-person-plus"></i> Начать путешествие
+          </a>
+          <a href="/pages/login" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-box-arrow-in-right"></i> Войти
+          </a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="hero-image-placeholder">
+          <div class="geometric-bg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5 mb-5">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h2 class="glow-text mb-4">Почему Grand Turismo?</h2>
+        <p class="lead text-muted">
+          Создано путешественниками для путешественников
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card card h-100">
+          <div class="card-body text-center">
+            <div class="feature-icon mb-3">
+              <i class="bi bi-calendar-check display-4"></i>
+            </div>
+            <h3 class="card-title h4">Удобное планирование</h3>
+            <p class="card-text">
+              Создавайте и управляйте вашими путешествиями с легкостью.
+              Добавляйте даты, бюджет и детали маршрута.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card card h-100">
+          <div class="card-body text-center">
+            <div class="feature-icon mb-3">
+              <i class="bi bi-graph-up display-4"></i>
+            </div>
+            <h3 class="card-title h4">Контроль бюджета</h3>
+            <p class="card-text">
+              Следите за расходами и планируйте бюджет каждого путешествия.
+              Никаких неожиданностей.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="feature-card card h-100">
+          <div class="card-body text-center">
+            <div class="feature-icon mb-3">
+              <i class="bi bi-star display-4"></i>
+            </div>
+            <h3 class="card-title h4">Отзывы и рейтинги</h3>
+            <p class="card-text">
+              Делитесь впечатлениями о местах и читайте отзывы других
+              путешественников.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular Destinations Section -->
+<section class="destinations-section py-5 mb-5">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="glow-text mb-4">Популярные направления</h2>
+        <p class="lead text-muted">
+          Исследуйте самые популярные места для путешествий
+        </p>
+      </div>
+    </div>
+
+    <div id="popularDestinations" class="row g-4">
+      <!-- Destinations will be loaded here -->
+      <div class="col-12 text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Загрузка...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+{% if current_user %}
+<section class="cta-section py-5 mb-5">
+  <div class="container">
+    <div class="card bg-dark-gradient">
+      <div class="card-body p-4">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h3 class="card-title mb-3">Готовы к новому приключению?</h3>
+            <p class="card-text mb-md-0">
+              Создайте новое путешествие и начните планировать свой маршрут
+              прямо сейчас.
+            </p>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a href="/pages/trips/create" class="btn btn-primary btn-lg">
+              <i class="bi bi-plus-lg"></i> Создать путешествие
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %} {% endblock %} {% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/index.js') }}"></script>
+{% endblock %}

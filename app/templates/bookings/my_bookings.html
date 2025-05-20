@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Мои бронирования{% endblock %}
+
+{% block extra_css %}
+<link href="{{ url_for('static', path='css/pages/my_bookings.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="glow-text mb-4 text-center">
+    <i class="bi bi-calendar2-check-fill"></i> Мои бронирования
+  </h1>
+  <div id="bookingsContainer">
+    <!-- JS подгрузит карточки бронирований сюда -->
+  </div>
+  <p id="noBookingsMessage" class="text-muted d-none text-center mt-4">
+    У вас ещё нет бронирований.
+  </p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/my_bookings.js') }}"></script>
+{% endblock %}

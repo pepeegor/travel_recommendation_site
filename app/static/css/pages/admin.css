@@ -1,0 +1,62 @@
+/* admin.css */
+
+.admin-card {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-card .card-body {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav-tabs .nav-link.active {
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    border-color: var(--accent-color);
+  }
+  
+  .nav-tabs .nav-link {
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    background-color: transparent;
+  }
+  
+  .nav-tabs .nav-link:hover {
+    background-color: var(--hover-color);
+    border-color: var(--accent-color);
+  }
+  
+  /* Стили для модального окна */
+  .modal-content {
+    background-color: var(--secondary-dark);
+    border: 1px solid var(--border-color);
+  }
+  
+  .modal-header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .modal-title {
+    color: var(--accent-color);
+  }
+  
+  .modal-footer {
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  
+  .table-dark {
+    --bs-table-bg: rgba(0, 0, 0, 0.3);
+    /* Изменяем цвет фона */
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.1);
+    /* Более светлый цвет для полосатых строк */
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.2);
+    /* Цвет при наведении */
+  }

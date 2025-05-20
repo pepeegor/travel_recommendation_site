@@ -1,0 +1,49 @@
+:root {
+  --primary-dark: #1a1a1a;
+  --secondary-dark: #2d2d2d;
+  --accent-color: #c8a45d;
+  --text-color: #e0e0e0;
+}
+
+/* Утилиты */
+.bg-secondary-dark {
+  background-color: var(--secondary-dark) !important;
+}
+.text-light {
+  color: var(--text-color) !important;
+}
+.badge.bg-accent {
+  background-color: var(--accent-color) !important;
+  color: var(--primary-dark) !important;
+}
+
+/* Кнопки */
+.btn-accent {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-dark);
+}
+.btn-accent:hover {
+  background-color: #b08d4d;
+}
+
+.btn-outline-accent {
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  background: transparent;
+}
+.btn-outline-accent:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-dark);
+}
+
+/* Карточка */
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.glow-text {
+  color: var(--accent-color);
+  text-shadow: 0 0 10px rgba(200, 164, 93, 0.5);
+}

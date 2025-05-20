@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Бронирование — {{ destination.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', path='css/pages/booking_form.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card bg-dark-gradient border-0 shadow-lg">
+        <div class="card-body p-4">
+          <h2 class="glow-text mb-4 text-center">
+            <i class="bi bi-calendar-check-fill"></i>
+            Бронирование: {{ destination.name }}
+          </h2>
+
+          {% if error %}
+          <div class="alert alert-danger" role="alert">
+            {{ error }}
+          </div>
+          {% endif %}
+
+          <form action="/bookings/" method="post">
+            <input type="hidden" name="destination_id" value="{{ destination.id }}">
+            <div class="mb-4">
+              <label for="slots" class="form-label">
+                Количество мест (макс. {{ destination.available_slots }})
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                id="slots"
+                name="slots_reserved"
+                min="1"
+                max="{{ destination.available_slots }}"
+                required
+              >
+            </div>
+            <div class="d-grid gap-3">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="bi bi-calendar-check-fill"></i>
+                Забронировать
+              </button>
+              <a href="/pages/destinations/{{ destination.id }}" class="btn btn-secondary btn-lg">
+                Отмена
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+  const slotsInput = document.getElementById('slots');
+  const maxSlots = {{ destination.available_slots }};
+  slotsInput.addEventListener('input', () => {
+    if (+slotsInput.value > maxSlots) {
+      slotsInput.value = maxSlots;
+    }
+  });
+})();
+</script>
+{% endblock %}

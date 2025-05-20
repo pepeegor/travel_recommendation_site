@@ -1,0 +1,67 @@
+.trip-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: calc(33.33% - 20px); 
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+.trip-card h2 {
+  font-size: 1.25rem;
+  color: var(--accent-color);
+  margin-bottom: 8px;
+}
+
+.trip-card p {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.trip-details {
+  font-weight: bold;
+}
+
+.btn-primary {
+  background-color: var(--accent-color);
+  border: none;
+  color: var(--primary-dark);
+  padding: 8px 16px;
+  margin-top: auto; 
+  align-self: flex-end; 
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px; /* Add rounded corners to the button */
+  transition: background-color 0.3s ease; /* Add a smooth transition for hover effect */
+}
+
+.btn-primary:hover {
+  background-color: #b08d4d; 
+  color: var(--primary-dark);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; 
+}
+
+.no-trips-message {
+  text-align: center; 
+  font-style: italic; 
+  color: var(--text-color); 
+  margin-top: 20px; 
+}

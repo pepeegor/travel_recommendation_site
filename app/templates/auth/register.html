@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Grand Turismo - Регистрация{% endblock %}
+
+{%block extra_css %}
+<link
+  href="{{ url_for('static', path='css/pages/auth.css') }}"
+  rel="stylesheet"
+/>
+{% endblock %} 
+
+{% block content %}
+<div class="auth-container">
+    <div class="card bg-dark-gradient">
+        <div class="card-body p-4">
+            <h2 class="text-center mb-4">
+                <span class="glow-text">Регистрация</span>
+            </h2>
+            <form id="registerForm" onsubmit="auth.handleRegister(event)">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Имя пользователя</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary">
+                            <i class="bi bi-person"></i>
+                        </span>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary">
+                            <i class="bi bi-envelope"></i>
+                        </span>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary">
+                            <i class="bi bi-key"></i>
+                        </span>
+                        <input type="password" class="form-control" id="password" name="password" required 
+                               minlength="8" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                               title="Минимум 8 символов, включая буквы и цифры">
+                        <button class="btn btn-outline-secondary" type="button" onclick="auth.togglePassword('password')">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <small class="form-text text-muted">
+                        Минимум 8 символов, должен содержать буквы и цифры
+                    </small>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    <i class="bi bi-person-plus"></i> Зарегистрироваться
+                </button>
+            </form>
+            <div class="text-center">
+                <p class="mb-0">Уже есть аккаунт? 
+                    <a href="/pages/login" class="text-decoration-none glow-text">Войдите</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', path='js/pages/auth.js') }}"></script>
+{% endblock %}

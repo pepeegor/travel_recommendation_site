@@ -1,0 +1,100 @@
+:root {
+  --primary-dark: #1a1a1a;
+  --secondary-dark: #2d2d2d;
+  --accent-color: #c8a45d;
+  --text-color: #e0e0e0;
+  --border-color: #404040;
+  --hover-color: #3a3a3a;
+}
+
+/* Общий фон и отступы */
+.container.my-4 {
+  background: var(--secondary-dark);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  color: var(--text-color);
+}
+
+/* Заголовок и кнопки */
+.d-flex.justify-content-between h1 {
+  margin: 0;
+  color: var(--accent-color);
+}
+
+#publishBtn,
+#editBtn {
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+#publishBtn {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+#publishBtn:hover {
+  background: var(--accent-color);
+  color: var(--primary-dark);
+}
+
+#editBtn {
+  border: 1px solid #f0ad4e;
+  color: #f0ad4e;
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+#editBtn:hover {
+  background: #f0ad4e;
+  color: var(--primary-dark);
+}
+
+/* Метаданные маршрута */
+.route-meta {
+  font-size: 0.95rem;
+  color: #bbb;
+  margin-bottom: 1.5rem;
+}
+
+/* Карта */
+#route-map {
+  height: 60vh;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Список точек */
+#points-list {
+  background: var(--primary-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 0;
+}
+#points-list .point-item {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  padding: 0.75rem 1rem;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+#points-list .point-item + .point-item {
+  border-top: 1px solid var(--border-color);
+}
+#points-list .point-item:hover {
+  background: var(--hover-color);
+}
+
+/* Подсказка курсора */
+.point-item:hover {
+  cursor: pointer;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  #route-map {
+    height: 40vh;
+  }
+}

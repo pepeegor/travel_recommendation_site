@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <!-- Стили фильтра и карточек -->
+  <style>
+    :root {
+      --primary-dark: #1a1a1a;
+      --secondary-dark: #2d2d2d;
+      --accent-color: #c8a45d;
+      --border-color: #404040;
+      --text-color: #e0e0e0;
+      --hover-color: #3a3a3a;
+    }
+
+    /* Форма фильтра */
+    #filter-form .form-control,
+    #filter-form .form-select {
+      background-color: var(--secondary-dark);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      border-radius: 0.375rem;
+      transition: border-color 0.2s;
+    }
+    #filter-form .form-control:focus,
+    #filter-form .form-select:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 5px rgba(200,164,93,0.5);
+    }
+    #filter-form .btn-primary {
+      background-color: var(--accent-color);
+      border: none;
+      color: var(--primary-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      transition: background 0.2s;
+    }
+    #filter-form .btn-primary:hover {
+      background-color: #b08d4d;
+    }
+
+    /* Карточки маршрутов */
+    #routes-list .card {
+      background: var(--secondary-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      color: var(--text-color);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #routes-list .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    #routes-list .card-body {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    #routes-list .card-title {
+      color: var(--accent-color);
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    #routes-list .card-text {
+      flex-grow: 1;
+      margin-bottom: 1rem;
+    }
+    #routes-list .btn-outline-primary {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+      transition: background 0.2s, color 0.2s;
+    }
+    #routes-list .btn-outline-primary:hover {
+      background-color: var(--accent-color);
+      color: var(--primary-dark);
+    }
+
+    /* Мини-карта */
+    .mini-map {
+      height: 150px;
+      border-bottom: 1px solid var(--border-color);
+    }
+  </style>
+{% endblock %}
+
+{% block title %}Публичные маршруты{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+  <h1 class="glow-text mb-4">Публичные маршруты</h1>
+
+  <form id="filter-form" class="row g-3 align-items-end mb-4">
+    <div class="col-auto">
+      <label class="form-label">Мин. бюджет</label>
+      <input type="number" step="0.01" name="min_budget" class="form-control" placeholder="Br">
+    </div>
+    <div class="col-auto">
+      <label class="form-label">Макс. бюджет</label>
+      <input type="number" step="0.01" name="max_budget" class="form-control" placeholder="Br">
+    </div>
+    
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Применить</button>
+    </div>
+  </form>
+
+  <div id="routes-list" class="row gy-4">
+    <!-- JS: сюда будут вставляться колонки с картами и карточками -->
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="{{ url_for('static', path='js/pages/routes.js') }}" defer></script>
+{% endblock %}

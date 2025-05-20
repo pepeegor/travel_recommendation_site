@@ -1,0 +1,77 @@
+/* styles.css */
+:root {
+    --primary-dark: #1a1a1a;
+    --secondary-dark: #2d2d2d;
+    --accent-color: #c8a45d; 
+    --text-color: #e0e0e0;
+    --border-color: #404040;
+    --card-bg: #2d2d2d;
+    --hover-color: #3a3a3a;
+}
+
+/* Base styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-dark);
+    color: var(--text-color);
+}
+
+.bg-dark-gradient {
+    background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+}
+
+.dark-theme {
+    background-color: var(--primary-dark);
+    color: var(--text-color);
+}
+
+/* Typography */
+.glow-text {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(200, 164, 93, 0.5);
+}
+
+/* Forms */
+.form-control, .form-select {
+    background-color: var(--secondary-dark);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--secondary-dark);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 157, 0.25);
+    color: var(--text-color);
+}
+
+/* Utilities */
+.error-message {
+    color: #ff4d4d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.success-message {
+    color: var(--accent-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    border: none;
+    color: var(--primary-dark);
+}
+
+.btn-primary:hover {
+    background-color: #b08d4d;
+    color: var(--primary-dark);
+}
+
+.feature-icon {
+    color: var(--accent-color);
+}
+

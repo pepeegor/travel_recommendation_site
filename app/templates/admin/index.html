@@ -1,0 +1,596 @@
+{% extends 'base.html' %} {% block title %}Админ панель - Grand Turismo{%
+endblock %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', path='css/pages/admin.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="container py-5">
+  <h1 class="glow-text mb-4 text-center">
+    <i class="bi bi-sliders"></i> Админ панель
+  </h1>
+
+  <div class="card admin-card mb-4">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="users-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#users"
+            type="button"
+            role="tab"
+            aria-controls="users"
+            aria-selected="true"
+          >
+            <i class="bi bi-people"></i> Пользователи
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="destinations-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#destinations"
+            type="button"
+            role="tab"
+            aria-controls="destinations"
+            aria-selected="false"
+          >
+            <i class="bi bi-geo-alt"></i> Направления
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="statistics-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#statistics"
+            type="button"
+            role="tab"
+            aria-controls="statistics"
+            aria-selected="false"
+          >
+            <i class="bi bi-graph-up"></i> Статистика
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-body">
+      <div class="tab-content" id="adminTabsContent">
+        <div
+          class="tab-pane fade show active"
+          id="users"
+          role="tabpanel"
+          aria-labelledby="users-tab"
+        >
+          <h2>Управление пользователями</h2>
+
+          <button
+            type="button"
+            class="btn btn-primary mb-3"
+            data-bs-toggle="modal"
+            data-bs-target="#createUserModal"
+          >
+            <i class="bi bi-plus-circle"></i> Создать пользователя
+          </button>
+
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Юзернейм</th>
+                <th scope="col">Email</th>
+                <th scope="col">Роль</th>
+                <th scope="col">Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+              <tr data-user-id="{{ user.id }}">
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary edit-user-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editUserModal"
+                    data-user-id="{{ user.id }}"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger delete-user-btn"
+                    data-user-id="{{ user.id }}"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          class="modal fade"
+          id="createUserModal"
+          tabindex="-1"
+          aria-labelledby="createUserModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="createUserModalLabel">
+                  Создать пользователя
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="createUserForm">
+                  <div class="mb-3">
+                    <label for="createUsername" class="col-form-label"
+                      >Юзернейм:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createUsername"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createEmail" class="col-form-label"
+                      >Email:</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="createEmail"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createPassword" class="col-form-label"
+                      >Пароль:</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="createPassword"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createRole" class="col-form-label">Роль:</label>
+                    <select class="form-select" id="createRole">
+                      <option value="user">user</option>
+                      <option value="admin">admin</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Закрыть
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  form="createUserForm"
+                >
+                  Создать
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="editUserModal"
+          tabindex="-1"
+          aria-labelledby="editUserModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">
+                  Редактировать пользователя
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="editUserForm">
+                  <input type="hidden" id="editUserId" />
+                  <div class="mb-3">
+                    <label for="editUsername" class="col-form-label"
+                      >Юзернейм:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editUsername"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editEmail" class="col-form-label">Email:</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="editEmail"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editRole" class="col-form-label">Роль:</label>
+                    <select class="form-select" id="editRole">
+                      <option value="user">user</option>
+                      <option value="admin">admin</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Закрыть
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  form="editUserForm"
+                >
+                  Сохранить
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="destinations"
+          role="tabpanel"
+          aria-labelledby="destinations-tab"
+        >
+          <h2>Управление направлениями</h2>
+
+          <button
+            type="button"
+            class="btn btn-primary mb-3"
+            data-bs-toggle="modal"
+            data-bs-target="#createDestinationModal"
+          >
+            <i class="bi bi-plus-circle"></i> Создать направление
+          </button>
+
+          <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название</th>
+                <th scope="col">Страна</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for destination in destinations %}
+              <tr data-destination-id="{{ destination.id }}">
+                <th scope="row">{{ destination.id }}</th>
+                <td>{{ destination.name }}</td>
+                <td>{{ destination.country }}</td>
+                <td>{{ destination.description }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-primary edit-destination-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editDestinationModal"
+                    data-destination-id="{{ destination.id }}"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger delete-destination-btn"
+                    data-destination-id="{{ destination.id }}"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          class="modal fade"
+          id="createDestinationModal"
+          tabindex="-1"
+          aria-labelledby="createDestinationModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="createDestinationModalLabel">
+                  Создать направление
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="createDestinationForm">
+                  <div class="mb-3">
+                    <label for="createDestinationName" class="col-form-label"
+                      >Название:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createDestinationName"
+                      name="name"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createDestinationCountry" class="col-form-label"
+                      >Страна:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createDestinationCountry"
+                      name="country"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      for="createDestinationDescription"
+                      class="col-form-label"
+                      >Описание:</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="createDestinationDescription"
+                      name="description"
+                    ></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="createDestinationClimate" class="col-form-label"
+                      >Климат:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="createDestinationClimate"
+                      name="climate"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createDestinationPrice" class="col-form-label"
+                      >Примерная цена:</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="createDestinationPrice"
+                      name="approximate_price"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      for="createDestinationLatitude"
+                      class="col-form-label"
+                      >Широта:</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="createDestinationLatitude"
+                      name="latitude"
+                      step="any"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      for="createDestinationLongitude"
+                      class="col-form-label"
+                      >Долгота:</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="createDestinationLongitude"
+                      name="longitude"
+                      step="any"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="createDestinationImage" class="col-form-label"
+                      >URL изображения:</label
+                    >
+                    <input
+                      type="url"
+                      class="form-control"
+                      id="createDestinationImage"
+                      name="image_url"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Закрыть
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  form="createDestinationForm"
+                >
+                  Создать
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="editDestinationModal"
+          tabindex="-1"
+          aria-labelledby="editDestinationModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editDestinationModalLabel">
+                  Редактировать направление
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <form id="editDestinationForm">
+                  <input type="hidden" id="editDestinationId" />
+                  <div class="mb-3">
+                    <label for="editDestinationName" class="col-form-label"
+                      >Название:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editDestinationName"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="editDestinationCountry" class="col-form-label"
+                      >Страна:</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="editDestinationCountry"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label
+                      for="editDestinationDescription"
+                      class="col-form-label"
+                      >Описание:</label
+                    >
+                    <textarea
+                      class="form-control"
+                      id="editDestinationDescription"
+                    ></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Закрыть
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  form="editDestinationForm"
+                >
+                  Сохранить
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="statistics"
+          role="tabpanel"
+          aria-labelledby="statistics-tab"
+        >
+          <h2>Статистика</h2>
+
+          <h3>Распределение поездок по месяцам</h3>
+          <canvas id="tripsPerMonthChart" width="400" height="200"></canvas>
+
+          <h3>Топ-5 популярных направлений</h3>
+          <canvas id="topDestinationsChart" width="400" height="200"></canvas>
+
+          <h3>Средний рейтинг направлений</h3>
+          <canvas id="avgRatingsChart" width="400" height="200"></canvas>
+
+          <h3>Распределение рейтинга по всем отзывам</h3>
+          <canvas
+            id="ratingDistributionChart"
+            width="400"
+            height="200"
+          ></canvas>
+
+          <h3>Соотношение цены и рейтинга направлений</h3>
+          <canvas
+            id="priceRatingRelationChart"
+            width="400"
+            height="200"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', path='js/pages/admin.js') }}" defer></script>
+{% endblock %}

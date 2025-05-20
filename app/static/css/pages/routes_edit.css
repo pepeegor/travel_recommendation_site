@@ -1,0 +1,128 @@
+:root {
+  --primary-dark: #1a1a1a;
+  --secondary-dark: #2d2d2d;
+  --accent-color: #c8a45d;
+  --text-color: #e0e0e0;
+  --border-color: #404040;
+  --hover-color: #3a3a3a;
+}
+
+/* Контейнер */
+.container-fluid {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Левая панель */
+aside {
+  border-right: 1px solid var(--border-color);
+}
+
+/* Заголовок */
+h2 {
+  color: var(--accent-color);
+}
+
+/* Инпуты и селекты */
+.form-control,
+.form-select {
+  background-color: var(--primary-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: 0.375rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px rgba(200, 164, 93, 0.5);
+}
+
+/* Кнопки */
+.btn-outline-primary {
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  background: transparent;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-outline-primary:hover {
+  background: var(--accent-color);
+  color: var(--primary-dark);
+}
+#saveChangesBtn,
+#saveChangesBtn:hover {
+  background-color: var(--accent-color);
+  border: none;
+  color: var(--primary-dark);
+}
+
+/* Список подсказок */
+#suggestions {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: var(--primary-dark);
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 0.375rem 0.375rem;
+  z-index: 10;
+}
+#suggestions li {
+  padding: 0.5rem 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#suggestions li:hover {
+  background: var(--hover-color);
+}
+
+/* Выбранные точки */
+#selectedPoints {
+  background: var(--primary-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+}
+#selectedPoints .list-group-item {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  transition: background 0.2s;
+}
+#selectedPoints .list-group-item + .list-group-item {
+  border-top: 1px solid var(--border-color);
+}
+#selectedPoints .list-group-item:hover {
+  background: var(--hover-color);
+}
+.drag-handle {
+  margin-right: 0.75rem;
+  color: var(--accent-color);
+  cursor: grab;
+}
+
+/* Карта */
+#route-edit-map {
+  height: 80vh;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  aside {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+  #route-edit-map {
+    height: 50vh;
+  }
+}

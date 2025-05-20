@@ -1,0 +1,63 @@
+#bookingsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  align-items: start;
+  margin: 2rem auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+}
+
+#bookingsContainer .card {
+  width: 100%;
+  max-width: 350px;
+  background: var(--secondary-dark);
+  border: none;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+#bookingsContainer .card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.card-header {
+  background: var(--accent-color);
+  color: var(--primary-dark);
+  text-align: center;
+  padding: 0.75rem 0;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.booking-date {
+  color: var(--border-color);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.btn-delete-booking {
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  margin-top: auto;
+  width: 100%;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-delete-booking:hover {
+  background-color: var(--accent-color);
+  color: var(--primary-dark);
+}
